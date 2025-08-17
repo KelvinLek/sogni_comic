@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Image Generator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Character Image Generator</h1>
+            <p>Describe your character and choose from generated images</p>
+        </header>
+
+        <main>
+            <section class="input-section">
+                <h2>Character Description</h2>
+                <div class="input-group">
+                    <textarea 
+                        id="characterPrompt" 
+                        placeholder="Describe your character in detail... (e.g., 'A young female warrior with silver hair, blue eyes, wearing leather armor, holding a glowing sword')"
+                        rows="4"
+                    ></textarea>
+                    <button id="generateBtn" class="generate-btn">Generate Images</button>
+                </div>
+            </section>
+
+            <section class="images-section" id="imagesSection">
+                <h2>Generated Images</h2>
+                <div class="images-grid" id="imagesGrid">
+                    <!-- Images will be populated here -->
+                </div>
+            </section>
+
+            <section class="selection-section" id="selectionSection" style="display: none;">
+                <h2>Your Selection</h2>
+                <div class="selected-image" id="selectedImage">
+                    <!-- Selected image will appear here -->
+                </div>
+                <p class="selection-text">You selected this character image!</p>
+                <button id="continueBtn" class="continue-btn">Continue to Storyline</button>
+            </section>
+
+            <section class="storyline-section" id="storylineSection" style="display: none;">
+                <h2>Storyline Generation</h2>
+                <div class="character-preview">
+                    <h3>Your Character</h3>
+                    <img src="" alt="Selected character" style="max-width: 200px; border-radius: 10px;">
+                </div>
+                <div class="storyline-input">
+                    <h3>Write Your Storyline</h3>
+                    <textarea 
+                        id="storylinePrompt" 
+                        placeholder="Describe the storyline or scene your character experiences... (e.g., 'The warrior enters a dark forest, encountering mysterious creatures and ancient ruins')"
+                        rows="4"
+                    ></textarea>
+                    <button id="generateStorylineBtn" class="generate-btn">Generate Storyline Image</button>
+                </div>
+            </section>
+
+            <section class="storyline-images-section" id="storylineImagesSection" style="display: none;">
+                <h2>Storyline Images</h2>
+                <div class="images-grid" id="storylineImagesGrid">
+                    <!-- Storyline images will be populated here -->
+                </div>
+                <button id="doneBtn" class="done-btn">Done</button>
+            </section>
+
+            <section class="final-section" id="finalSection" style="display: none;">
+                <h2>Your Complete Story</h2>
+                <div class="final-images">
+                    <div class="final-character">
+                        <h3>Character</h3>
+                        <img id="finalCharacterImg" src="" alt="Final character">
+                    </div>
+                    <div class="final-storyline">
+                        <h3>Storyline</h3>
+                        <img id="finalStorylineImg" src="" alt="Final storyline">
+                    </div>
+                </div>
+                <button id="downloadBtn" class="download-btn">Download Images</button>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
