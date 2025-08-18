@@ -1,0 +1,43 @@
+<!-- final.html: Final page – displays selected character and all saved storyline selections with download options and start-over. Uses ../assets/styles/styles.css and final.js. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sogni_comic - Your Complete Story</title>
+    <link rel="stylesheet" href="../assets/styles/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>sogni_comic</h1>
+            <p>Your Complete Story</p>
+        </header>
+
+        <main>
+            <section class="final-section">
+                <h2>Your Complete Story</h2>
+                <div class="final-images">
+                    <div class="final-character">
+                        <h3>Character</h3>
+                        <img id="finalCharacterImg" src="" alt="Final character">
+                        <button id="downloadCharacterBtn" class="download-btn">Download Character</button>
+                    </div>
+                    <div class="final-storylines">
+                        <h3>Storyline Images</h3>
+                        <div id="storylineImagesList">
+                            <!-- Storyline images will be populated here -->
+                        </div>
+                    </div>
+                </div>
+                <div class="final-actions">
+                    <button id="downloadAllBtn" class="download-all-btn">Download All Images</button>
+                    <button id="startOverBtn" class="start-over-btn">Start Over</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="final.js"></script>
+</body>
+</html>
