@@ -1,0 +1,60 @@
+{
+  "name": "@sogni-ai/sogni-client",
+  "publishConfig": {
+    "access": "public"
+  },
+  "version": "3.1.1",
+  "description": "Sogni Supernet Client",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "CHANGELOG.md",
+    "README.md",
+    "dist/",
+    "src/"
+  ],
+  "scripts": {
+    "clean": "rimraf ./dist",
+    "prepublishOnly": "npm run build",
+    "build": "npm run clean && tsc --project tsconfig.json",
+    "watch": "npm run clean && tsc --watch --project tsconfig.json",
+    "watch:esm": "npm run clean && tsc --watch --project tsconfig.esm.json",
+    "prettier": "prettier --check ./src",
+    "prettier:fix": "prettier --write ./src",
+    "release": "semantic-release",
+    "docs": "rimraf ./docs && npx typedoc",
+    "postdocs": "node -p \"'sdk-docs.sogni.ai'\" > docs/CNAME"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sogni-AI/sogni-client.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sogni-AI/sogni-client/issues"
+  },
+  "homepage": "https://github.com/Sogni-AI/sogni-client#readme",
+  "dependencies": {
+    "@lukeed/uuid": "^2.0.1",
+    "ethers": "^6.13.4",
+    "isomorphic-ws": "^5.0.0",
+    "js-cookie": "^3.0.5",
+    "jwt-decode": "^4.0.0",
+    "lodash": "^4.17.21",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "@types/js-cookie": "^3.0.6",
+    "@types/lodash": "^4.17.13",
+    "@types/ws": "^8.5.13",
+    "prettier": "^3.3.3",
+    "rimraf": "^6.0.1",
+    "semantic-release": "^24.2.1",
+    "typedoc": "^0.27.3",
+    "typedoc-plugin-missing-exports": "^3.1.0",
+    "typescript": "^5.6.3"
+  }
+}
