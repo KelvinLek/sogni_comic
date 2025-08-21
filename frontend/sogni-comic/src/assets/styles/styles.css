@@ -781,3 +781,128 @@ textarea:focus {
     60% { transform: translateX(160%); }
     100% { transform: translateX(160%); }
 }
+
+@media (max-width: 600px) {
+    .container {
+        padding: 8px;
+        max-width: 100vw;
+    }
+    main {
+        padding: 10px;
+    }
+    header h1 {
+        font-size: 1.5rem;
+    }
+    .input-section h2,
+    .images-section h2,
+    .selection-section h2,
+    .storyline-section h2 {
+        font-size: 1.2rem;
+    }
+    .input-group,
+    .images-grid,
+    .storyline-images-grid {
+        flex-direction: column;
+        gap: 10px;
+    }
+    textarea,
+    select,
+    button {
+        width: 100%;
+        box-sizing: border-box;
+        font-size: 1rem;
+    }
+    .images-grid,
+    .storyline-images-grid {
+        grid-template-columns: 1fr !important;
+    }
+    .image-card img {
+        height: 180px;
+    }
+    .selection-section,
+    .character-preview-section,
+    .storyline-section {
+        padding: 10px;
+    }
+    .storyline-actions .continue-btn,
+    .storyline-actions .next-storyline-btn {
+        width: 100%;
+        padding: 12px 0;
+        font-size: 1rem;
+    }
+    .final-images {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    .final-section {
+        padding: 10px;
+    }
+}
+
+select,
+#styleSelect {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: #fff url("data:image/svg+xml;utf8,<svg fill='gray' height='16' viewBox='0 0 20 20' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M7.293 8.293a1 1 0 011.414 0L10 9.586l1.293-1.293a1 1 0 111.414 1.414l-2 2a1 1 0 01-1.414 0l-2-2a1 1 0 010-1.414z'/></svg>") no-repeat right 0.75em center/1.2em 1.2em;
+    border: 1.5px solid #ccc;
+    border-radius: 1.5em;
+    padding: 0.5em 2.5em 0.5em 1em;
+    font-size: 1rem;
+    color: #333;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+    cursor: pointer;
+}
+
+select:focus,
+#styleSelect:focus {
+    border-color: #7b5cff;
+    box-shadow: 0 0 0 2px rgba(123,92,255,0.15);
+}
+
+select option {
+    border-radius: 0.5em;
+}
+
+a.sogni-link {
+    color: #fff !important;
+    text-decoration: underline;
+    font-weight: bold;
+    transition: color 0.2s;
+}
+a.sogni-link:hover {
+    color: #f9d923 !important;
+}
+
+.sample-storyline-prompts {
+    padding: 1.2em 0.5em 1.2em 0.5em;
+    margin-bottom: 1.2em;
+}
+
+.sample-storyline-prompts .prompt-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7em;
+    justify-content: space-evenly;
+}
+
+.sample-storyline-prompts .prompt-btn {
+    padding: 0.6em 1.2em;
+    border-radius: 1em;
+    border: 2px solid #f9d923;
+    background: #fffbe7;
+    color: #222;
+    font-size: 1em;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+    margin: 0.2em 0;
+    box-shadow: 0 2px 8px #f9d92322;
+}
+.sample-storyline-prompts .prompt-btn:hover {
+    background: #f9d923;
+    border-color: #f7a440;
+    color: #222;
+}

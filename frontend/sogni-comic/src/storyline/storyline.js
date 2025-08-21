@@ -37,6 +37,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Set up event listeners
     setupEventListeners();
+
+    addSampleStorylinePrompts();
 });
 
 function displayCharacterInfo(characterData) {
@@ -326,4 +328,30 @@ function renderPreviousStorylines() {
     } else {
         previousStorylinesGrid.innerHTML = '<p>No storyline images selected yet.</p>';
     }
+}
+
+function addSampleStorylinePrompts() {
+    const promptsDiv = document.getElementById('sampleStorylinePrompts');
+    if (!promptsDiv) return;
+    promptsDiv.innerHTML = `
+        <h3>Sample Storyline Prompts</h3>
+        <div class="prompt-buttons">
+            <button class="prompt-btn" data-prompt="The protagonist enters a dark forest, encountering mysterious creatures and ancient ruins.">Dark Forest Encounter</button>
+            <button class="prompt-btn" data-prompt="The protagonist discovers a hidden library filled with ancient spells and secrets.">Hidden Library Discovery</button>
+            <button class="prompt-btn" data-prompt="The protagonist soars above a burning village, casting a shadow over the fleeing villagers.">Dragon's Wrath</button>
+            <button class="prompt-btn" data-prompt="The protagonist archer sets a clever trap for a band of goblins in the moonlit woods.">Elf's Trap</button>
+            <button class="prompt-btn" data-prompt="The protagonist faces a giant stone golem guarding a mystical bridge.">Golem Guardian</button>
+        </div>
+    `;
+    // Add event listeners for sample prompt buttons
+    const promptButtons = promptsDiv.querySelectorAll('.prompt-btn');
+    const storylinePrompt = document.getElementById('storylinePrompt');
+    promptButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            if (storylinePrompt) {
+                storylinePrompt.value = this.dataset.prompt;
+                storylinePrompt.focus();
+            }
+        });
+    });
 }
