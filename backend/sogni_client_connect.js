@@ -17,17 +17,22 @@ console.log('[sogni_client_connect] SogniClient instance created');
 await client.account.login(USERNAME, PASSWORD);
 console.log('[sogni_client_connect] Logged in as:', USERNAME);
 
-export async function generateImage(prompt,style='comic') {
+// Options for image generation
+const additionalStyling = ", dynamic motion, epic, use char";
+const imageGenSeed = Math.floor(Math.random() * 0xFFFFFFFF);
+
+export async function generateImage(prompt,style='manga') {
     console.log('[generateImage] Called with prompt:', prompt);
     const project = await client.projects.create({
-        modelId: 'coreml-animaPencilXL_v500',
+        modelId: 'coreml-sogni_artist_v1_768',
         positivePrompt: prompt,
         negativePrompt: 'malformation, bad anatomy, bad hands, cropped, low quality',
-        stylePrompt: style,
+        stylePrompt: style + additionalStyling,
         tokenType: 'spark',
         steps: 20,
         guidance: 7.5,
         numberOfImages: 1,
+        seed: imageGenSeed
     });
     console.log('[generateImage] Project created:', project.id);
 
@@ -36,7 +41,7 @@ export async function generateImage(prompt,style='comic') {
     return imageUrls;
 }
 
-export async function generateImageWithReference(prompt, imageUrl, style='comic') {
+export async function generateImageWithReference(prompt, imageUrl, style='manga') {
 
     //Download image by url
     console.log('[generateImageWithReference] Downloading reference image');
@@ -49,16 +54,17 @@ export async function generateImageWithReference(prompt, imageUrl, style='comic'
     //Generate images using reference image
     console.log('[generateImageWithReference] Called with prompt:', prompt);
     const project = await client.projects.create({
-        modelId: 'coreml-animaPencilXL_v500',
-        positivePrompt: prompt,
+        modelId: 'coreml-sogni_artist_v1_768',
+        positivePrompt: prompt + " with reference to the ",
         negativePrompt: 'malformation, bad anatomy, bad hands, cropped, low quality',
-        stylePrompt: style,
+        stylePrompt: style + additionalStyling,
         tokenType: 'spark',
         steps: 20,
-        guidance: 7.5,
+        guidance: 5,
         numberOfImages: 3,
+        seed: imageGenSeed,
         startingImage: referenceImageBuffer,
-        startingImageStrength: 0.2
+        startingImageStrength: 0.05
     });
     console.log('[generateImageWithReference] Project created:', project.id);
 
