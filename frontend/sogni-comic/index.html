@@ -1,0 +1,50 @@
+<!-- index.html: Character page – accepts a character prompt, generates 5 sample images, allows selection, and navigates to the storyline page. Uses ../assets/styles/styles.css and script.js. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sogni_comic</title>
+    <link rel="stylesheet" href="../src/assets/styles/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>sogni_comic</h1>
+            <p>Describe your character and choose from generated images</p>
+        </header>
+
+        <main>
+            <section class="input-section">
+                <h2>Character Description</h2>
+                <div class="input-group">
+                    <textarea 
+                        id="characterPrompt" 
+                        placeholder="Describe your character in detail... (e.g., 'A young female warrior with silver hair, blue eyes, wearing leather armor, holding a glowing sword')"
+                        rows="4"
+                    ></textarea>
+                    <button id="generateBtn" class="generate-btn">Generate Images</button>
+                </div>
+            </section>
+
+            <section class="images-section" id="imagesSection">
+                <h2>Generated Images</h2>
+                <div class="images-grid" id="imagesGrid">
+                    <!-- Images will be populated here -->
+                </div>
+            </section>
+
+            <section class="selection-section" id="selectionSection" style="display: none;">
+                <h2>Your Selection</h2>
+                <div class="selected-image" id="selectedImage">
+                    <!-- Selected image will appear here -->
+                </div>
+                <p class="selection-text">You selected this character image!</p>
+                <button id="continueBtn" class="continue-btn">Continue to Storyline</button>
+            </section>
+        </main>
+    </div>
+
+    <script type="module" src="index.js"></script>
+</body>
+</html>

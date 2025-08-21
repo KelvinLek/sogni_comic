@@ -1,0 +1,59 @@
+<!-- storyline.html: Storyline page – shows selected character, generates 5 storyline images from a prompt, supports selection, and provides View Final / Next Storyline actions. Uses ../assets/styles/styles.css and storyline.js. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sogni_comic - Storyline Generation</title>
+    <link rel="stylesheet" href="../assets/styles/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>sogni_comic</h1>
+            <p>Generate storyline images for your character</p>
+        </header>
+
+        <main>
+            <section class="character-preview-section">
+                <h2>Your Selected Character</h2>
+                <div class="character-preview">
+                    <img id="selectedCharacterImg" src="" alt="Selected character">
+                    <p id="characterDescription"></p>
+                </div>
+            </section>
+
+            <section class="storyline-section">
+                <h2>Storyline Generation</h2>
+                <div class="storyline-input">
+                    <h3>Write Your Storyline</h3>
+                    <textarea 
+                        id="storylinePrompt" 
+                        placeholder="Describe the storyline or scene your character experiences... (e.g., 'The warrior enters a dark forest, encountering mysterious creatures and ancient ruins')"
+                        rows="4"
+                    ></textarea>
+                    <button id="generateStorylineBtn" class="generate-btn">Generate Storyline Image</button>
+                </div>
+            </section>
+
+            <section class="storyline-images-section" id="storylineImagesSection" style="display: none;">
+                <h2>Generated Storyline Images</h2>
+                <div class="images-grid" id="storylineImagesGrid">
+                    <!-- Storyline images will be populated here -->
+                </div>
+            </section>
+
+            <section class="selection-section" id="storylineSelectionSection" style="display: none;">
+                <h2>Your Storyline Selection</h2>
+                <div class="selected-image" id="selectedStorylineImage"></div>
+                <div class="storyline-actions">
+                    <button id="viewFinalBtn" class="continue-btn">View final product</button>
+                    <button id="nextStorylineBtn" class="next-storyline-btn">Next storyline</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script type="module" src="storyline.js"></script>
+</body>
+</html>
