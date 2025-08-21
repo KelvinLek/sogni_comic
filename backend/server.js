@@ -8,13 +8,13 @@ app.use(express.json());
 app.use(cors());
 
 app.post('/api/generate', async (req, res) => {
-    const { prompt, imageUrl } = req.body;
+    const { prompt, imageUrl, style } = req.body; // <-- add style here
     try {
         let images;
         if (imageUrl) {
-            images = await generateImageWithReference(prompt, imageUrl);
+            images = await generateImageWithReference(prompt, imageUrl, style); // <-- pass style
         } else {
-            images = await generateImage(prompt);
+            images = await generateImage(prompt, style); // <-- pass style
         }
         res.json({ images });
     } catch (error) {

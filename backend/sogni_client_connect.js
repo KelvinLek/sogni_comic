@@ -19,6 +19,7 @@ console.log('[sogni_client_connect] Logged in as:', USERNAME);
 
 export async function generateImage(prompt,style='comic') {
     console.log('[generateImage] Called with prompt:', prompt);
+    console.log('[generateImage] Called with style:', style);
     const project = await client.projects.create({
         modelId: 'coreml-animaPencilXL_v500',
         positivePrompt: prompt,
@@ -38,15 +39,14 @@ export async function generateImage(prompt,style='comic') {
 
 export async function generateImageWithReference(prompt, imageUrl, style='comic') {
 
-    //Download image by url
+    // Download image by url and wait for it to finish
     console.log('[generateImageWithReference] Downloading reference image');
-    downloadImage(imageUrl, 'referenceImage.png')
-        .then(() => console.log('Image downloaded'))
-        .catch(console.error);
+    await downloadImage(imageUrl, 'referenceImage.png');
+    console.log('Image downloaded');
 
     const referenceImageBuffer = await getReferenceImageBuffer('referenceImage.png');
     
-    //Generate images using reference image
+    // Generate images using reference image
     console.log('[generateImageWithReference] Called with prompt:', prompt);
     const project = await client.projects.create({
         modelId: 'coreml-animaPencilXL_v500',

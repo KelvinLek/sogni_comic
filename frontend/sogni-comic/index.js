@@ -4,10 +4,23 @@ import axios from 'axios';
 localStorage.removeItem('sogniCharacterData');
 localStorage.removeItem('sogniStorylineImages');
 
+// Get style from dropdown or localStorage
+function getSelectedStyle() {
+    // Try to get from dropdown if it exists
+    const styleSelect = document.getElementById('styleSelect');
+    if (styleSelect) {
+        return styleSelect.value;
+    }
+    // Fallback to localStorage or default
+    return localStorage.getItem('sogniStyle') || 'comic';
+}
+
+
 async function generateCharacter(prompt) {
     console.log('[generateCharacter] Called with prompt:', prompt);
+    const style = getSelectedStyle();
     try {
-        const response = await axios.post('http://localhost:5000/api/generate', { prompt });
+        const response = await axios.post('http://localhost:5000/api/generate', { prompt, style });
         console.log('[generateCharacter] API response:', response.data);
         // Expecting response.data.images to be an array of image URLs (strings)
         if (Array.isArray(response.data.images)) {
@@ -104,7 +117,11 @@ function navigateToStoryline(selectedImageData, characterPrompt) {
         prompt: characterPrompt
     };
     localStorage.setItem('sogniCharacterData', JSON.stringify(characterData));
-    
+
+    // Save style to localStorage for future use
+    const style = getSelectedStyle();
+    localStorage.setItem('sogniStyle', style);
+
     // Navigate to storyline page
     window.location.href = 'src/storyline/storyline.html';
 }
