@@ -102,7 +102,7 @@ function navigateToStoryline(selectedImageData, characterPrompt) {
     localStorage.setItem('sogniCharacterData', JSON.stringify(characterData));
     
     // Navigate to storyline page
-    window.location.href = '../src/storyline/storyline.html';
+    window.location.href = '../storyline/storyline.html';
 }
 
 document.addEventListener('DOMContentLoaded', function() {

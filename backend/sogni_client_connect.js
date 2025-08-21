@@ -26,7 +26,7 @@ export async function generateImage(prompt) {
         tokenType: 'spark',
         steps: 20,
         guidance: 7.5,
-        numberOfImages: 1,
+        numberOfImages: 5,
     });
     console.log('[generateImage] Project created:', project.id);
 
