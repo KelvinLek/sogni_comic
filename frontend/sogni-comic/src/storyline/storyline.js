@@ -58,6 +58,7 @@ function setupEventListeners() {
     const storylinePrompt = document.getElementById('storylinePrompt');
     const viewFinalBtn = document.getElementById('viewFinalBtn');
     const nextStorylineBtn = document.getElementById('nextStorylineBtn');
+    const loadingOverlay = document.getElementById('loadingOverlay');
 
     // Generate storyline image button
     if (generateStorylineBtn) {
@@ -70,6 +71,10 @@ function setupEventListeners() {
             }
 
             currentStorylinePrompt = prompt;
+            if (loadingOverlay) {
+                loadingOverlay.style.display = 'flex';
+                loadingOverlay.classList.add('active');
+            }
             generateStorylineImage(prompt);
         });
     }
@@ -145,6 +150,7 @@ function generateStorylineImage(storylinePrompt) {
     const storylineImagesSection = document.getElementById('storylineImagesSection');
     const storylineImagesGrid = document.getElementById('storylineImagesGrid');
     const selectionSection = document.getElementById('storylineSelectionSection');
+    const loadingOverlay = document.getElementById('loadingOverlay');
 
     // Reset current selection UI for this generation
     currentSelectedStorylineImage = null;
@@ -180,6 +186,10 @@ function generateStorylineImage(storylinePrompt) {
         // Reset button state
         generateStorylineBtn.textContent = 'Generate Storyline Image';
         generateStorylineBtn.disabled = false;
+        if (loadingOverlay) {
+            loadingOverlay.classList.remove('active');
+            loadingOverlay.style.display = 'none';
+        }
     });
 }
 

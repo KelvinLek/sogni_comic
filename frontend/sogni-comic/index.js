@@ -132,6 +132,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const imagesGrid = document.getElementById('imagesGrid');
     const imagesSection = document.getElementById('imagesSection');
     const selectionSection = document.getElementById('selectionSection');
+    const loadingOverlay = document.getElementById('loadingOverlay');
 
     let selectedImageData = { value: null };
 
@@ -148,6 +149,10 @@ document.addEventListener('DOMContentLoaded', function() {
         // Show loading state
         generateBtn.textContent = 'Generating...';
         generateBtn.disabled = true;
+        if (loadingOverlay) {
+            loadingOverlay.style.display = 'flex';
+            loadingOverlay.classList.add('active');
+        }
 
         displayImages(prompt, imagesGrid, imagesSection, selectionSection, selectedImageData);
 
@@ -157,6 +162,10 @@ document.addEventListener('DOMContentLoaded', function() {
             generateBtn.textContent = 'Generate Images';
             generateBtn.disabled = false;
             observer.disconnect();
+            if (loadingOverlay) {
+                loadingOverlay.classList.remove('active');
+                loadingOverlay.style.display = 'none';
+            }
         });
         observer.observe(imagesGrid, { childList: true });
     });
