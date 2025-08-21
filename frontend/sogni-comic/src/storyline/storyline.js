@@ -116,6 +116,7 @@ async function generateStoryline(prompt) {
     // Get all previous storyline images
     const storylineImagesRaw = JSON.parse(localStorage.getItem('sogniStorylineImages') || '[]');
     let imageUrl;
+    const style = localStorage.getItem('sogniStyle') || 'comic';
 
     if (Array.isArray(storylineImagesRaw) && storylineImagesRaw.length > 0) {
         // Use the last selected storyline image as reference
@@ -128,7 +129,7 @@ async function generateStoryline(prompt) {
     }
 
     try {
-        const response = await axios.post('http://localhost:5000/api/generate', { prompt, imageUrl });
+        const response = await axios.post('http://localhost:5000/api/generate', { prompt, imageUrl, style });
         if (Array.isArray(response.data.images)) {
             return response.data.images.map((url, idx) => ({
                 src: url,
