@@ -22,9 +22,10 @@ const models = await client.projects.waitForModels();
 // You can get list of available models any time from `client.projects.availableModels`
 
 // Find model that has the most workers
-// const mostPopularModel = models.reduce((a, b) =>
-//   a.workerCount > b.workerCount ? a : b
-// );
+const mostPopularModel = models.reduce((a, b) =>
+  a.workerCount > b.workerCount ? a : b
+);
+console.log(mostPopularModel);
 
 // console.log(mostPopularModel);
 
@@ -32,24 +33,24 @@ const models = await client.projects.waitForModels();
 // const listOfModels = await client.projects.availableModels;
 // console.log(listOfModels);
 
-// Create a project using the most popular model
-const project = await client.projects.create({
-  modelId: 'coreml-animaPencilXL_v500',
-  positivePrompt: 'A cat wearing a hat',
-  negativePrompt:
-    'malformation, bad anatomy, bad hands, missing fingers, cropped, low quality, bad quality, jpeg artifacts, watermark',
-  stylePrompt: 'anime',
-  tokenType: 'spark',
-  steps: 20, 
-  guidance: 7.5, 
-  numberOfImages: 1
-});
+// // Create a project using the most popular model
+// const project = await client.projects.create({
+//   modelId: 'coreml-animaPencilXL_v500',
+//   positivePrompt: 'A cat wearing a hat',
+//   negativePrompt:
+//     'malformation, bad anatomy, bad hands, missing fingers, cropped, low quality, bad quality, jpeg artifacts, watermark',
+//   stylePrompt: 'anime',
+//   tokenType: 'spark',
+//   steps: 20, 
+//   guidance: 7.5, 
+//   numberOfImages: 1
+// });
 
-project.on('progress', (progress) => {
-  console.log('Project progress:', progress);
-});
+// project.on('progress', (progress) => {
+//   console.log('Project progress:', progress);
+// });
 
-const imageUrls = await project.waitForCompletion();
-// Now you can use image URLs to download images. 
-// Note that images will be available for 24 hours only!
-console.log('Image URLs:', imageUrls);
+// const imageUrls = await project.waitForCompletion();
+// // Now you can use image URLs to download images. 
+// // Note that images will be available for 24 hours only!
+// console.log('Image URLs:', imageUrls);
