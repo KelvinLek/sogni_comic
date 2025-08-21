@@ -14,8 +14,20 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     color: #333;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: url('../images/background.png') center center / cover no-repeat fixed;
     min-height: 100vh;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.1) 100%);
+    z-index: -1;
 }
 
 .container {
@@ -27,25 +39,34 @@ body {
 header {
     text-align: center;
     margin-bottom: 40px;
-    color: white;
+    color: #ffffff;
+    text-shadow: 3px 3px 6px rgba(0,0,0,0.8);
 }
 
 header h1 {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    font-size: 3rem;
+    margin-bottom: 15px;
+    font-weight: 800;
+    text-shadow: 4px 4px 8px rgba(0,0,0,0.9), 2px 2px 4px rgba(255,255,255,0.3);
+    letter-spacing: 2px;
+    text-transform: uppercase;
 }
 
 header p {
-    font-size: 1.1rem;
-    opacity: 0.9;
+    font-size: 1.3rem;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+    font-weight: 500;
+    letter-spacing: 1px;
 }
 
 main {
-    background: white;
+    background: rgba(255, 255, 255, 0.95);
     border-radius: 15px;
     padding: 30px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .input-section {
@@ -53,9 +74,11 @@ main {
 }
 
 .input-section h2 {
-    color: #4a5568;
+    color: #1a202c;
     margin-bottom: 20px;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
 }
 
 .input-group {
@@ -112,9 +135,11 @@ textarea:focus {
 }
 
 .sample-prompts h3 {
-    color: #4a5568;
+    color: #1a202c;
     margin-bottom: 15px;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
+    font-weight: 600;
+    text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
 }
 
 .prompt-buttons {
@@ -145,9 +170,11 @@ textarea:focus {
 }
 
 .images-section h2 {
-    color: #4a5568;
+    color: #1a202c;
     margin-bottom: 20px;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
 }
 
 .images-grid {
@@ -209,9 +236,11 @@ textarea:focus {
 }
 
 .selection-section h2 {
-    color: #4a5568;
+    color: #1a202c;
     margin-bottom: 20px;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
 }
 
 .selected-image {
@@ -258,10 +287,12 @@ textarea:focus {
 }
 
 .storyline-section h2 {
-    color: #4a5568;
+    color: #1a202c;
     margin-bottom: 25px;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
+    font-weight: 700;
     text-align: center;
+    text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
 }
 
 .character-preview {
@@ -274,9 +305,11 @@ textarea:focus {
 }
 
 .character-preview h3 {
-    color: #4a5568;
+    color: #1a202c;
     margin-bottom: 15px;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
+    font-weight: 600;
+    text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
 }
 
 .storyline-input {
@@ -284,9 +317,11 @@ textarea:focus {
 }
 
 .storyline-input h3 {
-    color: #4a5568;
+    color: #1a202c;
     margin-bottom: 15px;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
+    font-weight: 600;
+    text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
 }
 
 .storyline-input textarea {
@@ -298,10 +333,12 @@ textarea:focus {
 }
 
 .storyline-images-section h2 {
-    color: #4a5568;
+    color: #1a202c;
     margin-bottom: 20px;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
+    font-weight: 700;
     text-align: center;
+    text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
 }
 
 .storyline-images-grid {
@@ -321,9 +358,11 @@ textarea:focus {
 }
 
 .final-section h2 {
-    color: #4a5568;
+    color: #1a202c;
     margin-bottom: 30px;
-    font-size: 2rem;
+    font-size: 2.2rem;
+    font-weight: 700;
+    text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
 }
 
 .final-images {
@@ -342,9 +381,11 @@ textarea:focus {
 }
 
 .final-character h3, .final-storyline h3 {
-    color: #4a5568;
+    color: #1a202c;
     margin-bottom: 20px;
-    font-size: 1.3rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
 }
 
 .final-character img, .final-storyline img {
@@ -517,9 +558,11 @@ textarea:focus {
 }
 
 .character-preview-section h2 {
-    color: #4a5568;
+    color: #1a202c;
     margin-bottom: 25px;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
 }
 
 .character-preview-section .character-preview {
