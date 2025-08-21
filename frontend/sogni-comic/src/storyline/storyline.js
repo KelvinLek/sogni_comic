@@ -108,11 +108,23 @@ function setupEventListeners() {
 }
 
 async function generateStoryline(prompt) {
+    // Get all previous storyline images
+    const storylineImagesRaw = JSON.parse(localStorage.getItem('sogniStorylineImages') || '[]');
+    let imageUrl;
+
+    if (Array.isArray(storylineImagesRaw) && storylineImagesRaw.length > 0) {
+        // Use the last selected storyline image as reference
+        const last = storylineImagesRaw[storylineImagesRaw.length - 1];
+        imageUrl = last && last.image ? last.image.src : undefined;
+    } else {
+        // Use the character image as reference for the first storyline
+        const characterData = JSON.parse(localStorage.getItem('sogniCharacterData') || '{}');
+        imageUrl = characterData.image ? characterData.image.src : undefined;
+    }
+
     try {
-        const response = await axios.post('http://localhost:5000/api/generate', { prompt });
-        // Expecting response.data.images to be an array of image URLs (strings)
+        const response = await axios.post('http://localhost:5000/api/generate', { prompt, imageUrl });
         if (Array.isArray(response.data.images)) {
-            // Map URLs to objects for UI rendering
             return response.data.images.map((url, idx) => ({
                 src: url,
                 title: `Storyline Variation ${idx + 1}`,

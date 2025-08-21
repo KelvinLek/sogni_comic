@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { generateImage } from './sogni_client_connect.js';
+import { generateImage, generateImageWithReference } from './sogni_client_connect.js';
 import fetch from 'node-fetch';
 
 const app = express();
@@ -8,9 +8,14 @@ app.use(express.json());
 app.use(cors());
 
 app.post('/api/generate', async (req, res) => {
-    const { prompt } = req.body;
+    const { prompt, imageUrl } = req.body;
     try {
-        const images = await generateImage(prompt);
+        let images;
+        if (imageUrl) {
+            images = await generateImageWithReference(prompt, imageUrl);
+        } else {
+            images = await generateImage(prompt);
+        }
         res.json({ images });
     } catch (error) {
         res.status(500).json({ error: error.message });
