@@ -1,5 +1,9 @@
 import axios from 'axios';
 
+// Reset progress when index.html is loaded
+localStorage.removeItem('sogniCharacterData');
+localStorage.removeItem('sogniStorylineImages');
+
 async function generateCharacter(prompt) {
     console.log('[generateCharacter] Called with prompt:', prompt);
     try {
@@ -102,7 +106,7 @@ function navigateToStoryline(selectedImageData, characterPrompt) {
     localStorage.setItem('sogniCharacterData', JSON.stringify(characterData));
     
     // Navigate to storyline page
-    window.location.href = '../storyline/storyline.html';
+    window.location.href = 'src/storyline/storyline.html';
 }
 
 document.addEventListener('DOMContentLoaded', function() {

@@ -151,5 +151,5 @@ function startOver() {
 	localStorage.removeItem('sogniStorylineImages');
 	
 	// Redirect to main page
-	window.location.href = '../index/index.html';
+	window.location.href = '../../../index.html';
 }

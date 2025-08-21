@@ -28,7 +28,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Display character information
     displayCharacterInfo(characterData);
-    
+
+    // Show last selected storyline image if it exists
+    showLastStorylineSelection();
+
+    // Render all previous storyline selections
+    renderPreviousStorylines();
+
     // Set up event listeners
     setupEventListeners();
 });
@@ -36,8 +42,8 @@ document.addEventListener('DOMContentLoaded', function() {
 function displayCharacterInfo(characterData) {
     const characterImg = document.getElementById('selectedCharacterImg');
     const characterDescription = document.getElementById('characterDescription');
-	
-	if (characterImg) {
+    
+    if (characterImg) {
         characterImg.src = characterData.image.src;
         characterImg.alt = characterData.image.title;
     }
@@ -86,6 +92,7 @@ function setupEventListeners() {
                 return;
             }
             saveCurrentSelection();
+            // After saving, reset for next storyline and keep previous selections visible
             resetForNextStoryline();
         });
     }
@@ -218,6 +225,7 @@ function saveCurrentSelection() {
     };
     storylineImages.push(storylineData);
     localStorage.setItem('sogniStorylineImages', JSON.stringify(storylineImages));
+    renderPreviousStorylines();
 }
 
 function resetForNextStoryline() {
@@ -227,16 +235,18 @@ function resetForNextStoryline() {
         promptEl.value = '';
         promptEl.focus();
     }
-    // Hide sections and clear grid
-    const selectionSection = document.getElementById('storylineSelectionSection');
+    // Hide images grid, but keep previous selections visible
     const imagesSection = document.getElementById('storylineImagesSection');
     const imagesGrid = document.getElementById('storylineImagesGrid');
-    if (selectionSection) selectionSection.style.display = 'none';
     if (imagesSection) imagesSection.style.display = 'none';
     if (imagesGrid) imagesGrid.innerHTML = '';
-    // Reset current selection and prompt state
+
+    // Reset current selection and prompt state for new generation
     currentSelectedStorylineImage = null;
     currentStorylinePrompt = '';
+
+    // Show last selection if it exists (optional, but not needed since previous selections are always shown)
+    // showLastStorylineSelection();
 }
 
 function navigateToFinalPage() {
@@ -247,4 +257,50 @@ function navigateToFinalPage() {
         return;
     }
     window.location.href = '../final/final.html';
+}
+
+function showLastStorylineSelection() {
+    const storylineImagesRaw = JSON.parse(localStorage.getItem('sogniStorylineImages') || '[]');
+    const selectionSection = document.getElementById('storylineSelectionSection');
+    const selectedImage = document.getElementById('selectedStorylineImage');
+    if (Array.isArray(storylineImagesRaw) && storylineImagesRaw.length > 0) {
+        const last = storylineImagesRaw[storylineImagesRaw.length - 1];
+        if (last && last.image) {
+            currentSelectedStorylineImage = last.image;
+            currentStorylinePrompt = last.prompt || '';
+            if (selectedImage) {
+                selectedImage.innerHTML = `<img src="${last.image.src}" alt="${last.image.title}">`;
+            }
+            if (selectionSection) selectionSection.style.display = 'block';
+            return;
+        }
+    }
+    // Hide if no previous selection
+    if (selectionSection) selectionSection.style.display = 'none';
+    if (selectedImage) selectedImage.innerHTML = '';
+}
+
+function renderPreviousStorylines() {
+    const previousStorylinesGrid = document.getElementById('previousStorylinesGrid');
+    if (!previousStorylinesGrid) return;
+    previousStorylinesGrid.innerHTML = '';
+    const storylineImagesRaw = JSON.parse(localStorage.getItem('sogniStorylineImages') || '[]');
+    if (Array.isArray(storylineImagesRaw) && storylineImagesRaw.length > 0) {
+        storylineImagesRaw.forEach((item, idx) => {
+            if (item.image && item.image.src) {
+                const card = document.createElement('div');
+                card.className = 'image-card previous-storyline-card';
+                card.innerHTML = `
+                    <img src="${item.image.src}" alt="Storyline ${idx + 1}" loading="lazy">
+                    <div class="image-info">
+                        <h3>Storyline ${idx + 1}</h3>
+                        <p>${item.prompt || ''}</p>
+                    </div>
+                `;
+                previousStorylinesGrid.appendChild(card);
+            }
+        });
+    } else {
+        previousStorylinesGrid.innerHTML = '<p>No storyline images selected yet.</p>';
+    }
 }
