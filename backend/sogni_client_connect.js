@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import { downloadImage,deleteImageFile, getReferenceImageBuffer } from './image_helper.js'
+import { downloadImage, deleteImageFile, getReferenceImageBuffer } from './image_helper.js'
 import { SogniClient } from '@sogni-ai/sogni-client';
 
 dotenv.config();
@@ -27,7 +27,7 @@ export async function generateImage(prompt) {
         tokenType: 'spark',
         steps: 20,
         guidance: 7.5,
-        numberOfImages: 5,
+        numberOfImages: 1,
     });
     console.log('[generateImage] Project created:', project.id);
 
@@ -56,13 +56,14 @@ export async function generateImageWithReference(prompt, imageUrl) {
         tokenType: 'spark',
         steps: 20,
         guidance: 7.5,
-        numberOfImages: 5,
-        startingImage: referenceImageBuffer
+        numberOfImages: 3,
+        startingImage: referenceImageBuffer,
+        startingImageStrength: 0.2
     });
-    console.log('[generateImage] Project created:', project.id);
+    console.log('[generateImageWithReference] Project created:', project.id);
 
     const imageUrls = await project.waitForCompletion();
-    console.log('[generateImage] Image URLs:', imageUrls);
+    console.log('[generateImageWithReference] Image URLs:', imageUrls);
 
     // Delete reference images
     deleteImageFile('./referenceImage.png');
