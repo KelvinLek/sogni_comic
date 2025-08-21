@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import { downloadImage,deleteImageFile, getReferenceImageBuffer } from './image_helper.js'
+import { downloadImage, deleteImageFile, getReferenceImageBuffer } from './image_helper.js'
 import { SogniClient } from '@sogni-ai/sogni-client';
 
 dotenv.config();
@@ -17,17 +17,17 @@ console.log('[sogni_client_connect] SogniClient instance created');
 await client.account.login(USERNAME, PASSWORD);
 console.log('[sogni_client_connect] Logged in as:', USERNAME);
 
-export async function generateImage(prompt) {
+export async function generateImage(prompt,style='comic') {
     console.log('[generateImage] Called with prompt:', prompt);
     const project = await client.projects.create({
         modelId: 'coreml-animaPencilXL_v500',
         positivePrompt: prompt,
         negativePrompt: 'malformation, bad anatomy, bad hands, cropped, low quality',
-        stylePrompt: 'anime',
+        stylePrompt: style,
         tokenType: 'spark',
         steps: 20,
         guidance: 7.5,
-        numberOfImages: 5,
+        numberOfImages: 1,
     });
     console.log('[generateImage] Project created:', project.id);
 
@@ -36,7 +36,7 @@ export async function generateImage(prompt) {
     return imageUrls;
 }
 
-export async function generateImageWithReference(prompt, imageUrl) {
+export async function generateImageWithReference(prompt, imageUrl, style='comic') {
 
     //Download image by url
     console.log('[generateImageWithReference] Downloading reference image');
@@ -52,17 +52,18 @@ export async function generateImageWithReference(prompt, imageUrl) {
         modelId: 'coreml-animaPencilXL_v500',
         positivePrompt: prompt,
         negativePrompt: 'malformation, bad anatomy, bad hands, cropped, low quality',
-        stylePrompt: 'anime',
+        stylePrompt: style,
         tokenType: 'spark',
         steps: 20,
         guidance: 7.5,
-        numberOfImages: 5,
-        startingImage: referenceImageBuffer
+        numberOfImages: 3,
+        startingImage: referenceImageBuffer,
+        startingImageStrength: 0.2
     });
-    console.log('[generateImage] Project created:', project.id);
+    console.log('[generateImageWithReference] Project created:', project.id);
 
     const imageUrls = await project.waitForCompletion();
-    console.log('[generateImage] Image URLs:', imageUrls);
+    console.log('[generateImageWithReference] Image URLs:', imageUrls);
 
     // Delete reference images
     deleteImageFile('./referenceImage.png');
