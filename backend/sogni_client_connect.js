@@ -11,13 +11,13 @@ const options = {
     network: 'relaxed',
 };
 
+const client = await SogniClient.createInstance(options);
+console.log('[sogni_client_connect] SogniClient instance created');
+await client.account.login(USERNAME, PASSWORD);
+console.log('[sogni_client_connect] Logged in as:', USERNAME);
+
 export async function generateImage(prompt) {
     console.log('[generateImage] Called with prompt:', prompt);
-    const client = await SogniClient.createInstance(options);
-    console.log('[generateImage] SogniClient instance created');
-    await client.account.login(USERNAME, PASSWORD);
-    console.log('[generateImage] Logged in as:', USERNAME);
-
     const project = await client.projects.create({
         modelId: 'coreml-animaPencilXL_v500',
         positivePrompt: prompt,
