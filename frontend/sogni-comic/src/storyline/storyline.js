@@ -7,6 +7,7 @@
 // - Save selection and either navigate to final page or reset for next storyline
 
 import axios from "axios";
+import {backendIP} from '../../config.js';
 
 let storylineImages = []; // Stored selections across storylines (persisted)
 let currentStorylinePrompt = '';
@@ -131,7 +132,7 @@ async function generateStoryline(prompt) {
     }
 
     try {
-        const response = await axios.post('http://localhost:5000/api/generate', { prompt, imageUrl, style });
+        const response = await axios.post('http://'+backendIP+':5000/api/generate', { prompt, imageUrl, style });
         if (Array.isArray(response.data.images)) {
             return response.data.images.map((url, idx) => ({
                 src: url,
