@@ -50,9 +50,12 @@ SOGNI_APP_ID="your_app_id"
 > **Note:** Never share your `.env` file or credentials publicly.
 
 ### 4. Start the Backend Server
+Start node.js server from project root
 
 ```sh
-npm start
+cd ..
+node backend/server.js
+
 ```
 The backend will run on [http://localhost:5000](http://localhost:5000).
 
@@ -65,7 +68,15 @@ cd frontend/sogni-comic
 npm install
 ```
 
-### 6. Start the Frontend Development Server
+### 6. Set Up Environment Variables
+
+Configure `config.js` file in the `frontend/sogni_comic` folder with your Backend Server IP Address:
+
+```
+export const backendIp = "Your backend server IP Address";
+```
+
+### 7. Start the Frontend Development Server
 
 ```sh
 npm run dev
@@ -95,3 +106,13 @@ The frontend will run on [http://localhost:5173](http://localhost:5173) (or as s
 ## Credits
 
 - Powered by [Sogni AI](https://sogni.ai)
+- Developed for NTU x Base Sogni AI Track Hackathon
+
+---
+
+## Contributors
+1. Hong Kyla Bernardette
+2. Kelvin Lek Teng Chee
+3. Tee Jia Hong
+4. Toh Kok Soon
+
