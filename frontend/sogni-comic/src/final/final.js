@@ -109,7 +109,7 @@ function renderComicPage(finalImages) {
 
         const img = document.createElement('img');
         // Use backend proxy to avoid CORS issues for html2canvas
-        img.src = `http://localhost:5000/api/proxy-image?url=${encodeURIComponent(imgObj.src)}`;
+        img.src = `http://`+backendIP`:5000/api/proxy-image?url=${encodeURIComponent(imgObj.src)}`;
         img.alt = imgObj.title || `Comic panel ${idx + 1}`;
         img.crossOrigin = "anonymous";
 

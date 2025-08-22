@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {backendIP} from 'configs.js';
+import {backendIP} from './config.js';
 
 // Reset progress when index.html is loaded
 localStorage.removeItem('sogniCharacterData');
