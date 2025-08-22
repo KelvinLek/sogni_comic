@@ -4,6 +4,8 @@ import axios from 'axios';
 localStorage.removeItem('sogniCharacterData');
 localStorage.removeItem('sogniStorylineImages');
 
+const backendIP = "192.168.1.17";
+
 // Get style from dropdown or localStorage
 function getSelectedStyle() {
     // Try to get from dropdown if it exists
@@ -20,7 +22,7 @@ async function generateCharacter(prompt) {
     console.log('[generateCharacter] Called with prompt:', prompt);
     const style = getSelectedStyle();
     try {
-        const response = await axios.post('http://localhost:5000/api/generate', { prompt, style });
+        const response = await axios.post('http://'+backendIP+':5000/api/generate', { prompt, style });
         console.log('[generateCharacter] API response:', response.data);
         // Expecting response.data.images to be an array of image URLs (strings)
         if (Array.isArray(response.data.images)) {

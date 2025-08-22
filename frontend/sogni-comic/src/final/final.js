@@ -4,6 +4,7 @@
 // - Deduplicate storyline selections and render them
 // - Provide download for character, each storyline, and all images
 // - Provide start-over flow to reset state and return to character page
+import {backendIP} from '../../config.js';
 
 // Final page functionality
 document.addEventListener('DOMContentLoaded', function() {
@@ -115,7 +116,7 @@ function setupEventListeners(characterData, storylineImages) {
 
 function downloadImage(imageData, filename) {
     // Use backend proxy to avoid CORS issues
-    fetch(`http://localhost:5000/api/proxy-image?url=${encodeURIComponent(imageData.src)}`)
+    fetch(`http://`+backendIP+`:5000/api/proxy-image?url=${encodeURIComponent(imageData.src)}`)
         .then(response => response.blob())
         .then(blob => {
             const url = window.URL.createObjectURL(blob);

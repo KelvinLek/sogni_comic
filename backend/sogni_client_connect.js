@@ -21,18 +21,27 @@ console.log('[sogni_client_connect] Logged in as:', USERNAME);
 const additionalStyling = ", dynamic motion, epic, use char";
 const imageGenSeed = Math.floor(Math.random() * 0xFFFFFFFF);
 
-export async function generateImage(prompt,style='manga') {
+// Hashmap for style and models
+const modelMap = new Map();
+modelMap.set('comic', 'coreml-aZovyaRPGArtistTools_v4_768');
+modelMap.set('anime','coreml-animaPencilXL_v500');
+modelMap.set('superhero','coreml-aZovyaRPGArtistTools_v4_768');
+modelMap.set('black and white manga','coreml-animeLineart-AnythingV5Ink-512x512-cn');
+modelMap.set('cartoon','coreml-diPixCartoon_v10-cn');
+modelMap.set('realistic','coreml-sogni_artist_v1_768');
+
+export async function generateImage(prompt,style='comic') {
     console.log('[generateImage] Called with prompt:', prompt);
     console.log('[generateImage] Called with style:', style);
     const project = await client.projects.create({
-        modelId: 'coreml-sogni_artist_v1_768',
+        modelId: modelMap.get(style),
         positivePrompt: prompt,
         negativePrompt: 'malformation, bad anatomy, bad hands, cropped, low quality',
         stylePrompt: style + additionalStyling,
         tokenType: 'spark',
         steps: 20,
         guidance: 7.5,
-        numberOfImages: 1,
+        numberOfImages: 5,
         seed: imageGenSeed
     });
     console.log('[generateImage] Project created:', project.id);
@@ -42,7 +51,7 @@ export async function generateImage(prompt,style='manga') {
     return imageUrls;
 }
 
-export async function generateImageWithReference(prompt, imageUrl, style='manga') {
+export async function generateImageWithReference(prompt, imageUrl, style='comic') {
 
     // Download image by url and wait for it to finish
     console.log('[generateImageWithReference] Downloading reference image');
@@ -54,14 +63,14 @@ export async function generateImageWithReference(prompt, imageUrl, style='manga'
     // Generate images using reference image
     console.log('[generateImageWithReference] Called with prompt:', prompt);
     const project = await client.projects.create({
-        modelId: 'coreml-sogni_artist_v1_768',
+        modelId: modelMap.get(style),
         positivePrompt: prompt + " with reference to the ",
         negativePrompt: 'malformation, bad anatomy, bad hands, cropped, low quality',
         stylePrompt: style + additionalStyling,
         tokenType: 'spark',
         steps: 20,
         guidance: 5,
-        numberOfImages: 3,
+        numberOfImages: 5,
         seed: imageGenSeed,
         startingImage: referenceImageBuffer,
         startingImageStrength: 0.05
