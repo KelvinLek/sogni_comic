@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { backendIp } from './config';
 
 // Reset progress when index.html is loaded
 localStorage.removeItem('sogniCharacterData');
@@ -20,7 +21,7 @@ async function generateCharacter(prompt) {
     console.log('[generateCharacter] Called with prompt:', prompt);
     const style = getSelectedStyle();
     try {
-        const response = await axios.post('http://localhost:5000/api/generate', { prompt, style });
+        const response = await axios.post('http://'+backendIp+':5000/api/generate', { prompt, style });
         console.log('[generateCharacter] API response:', response.data);
         // Expecting response.data.images to be an array of image URLs (strings)
         if (Array.isArray(response.data.images)) {
