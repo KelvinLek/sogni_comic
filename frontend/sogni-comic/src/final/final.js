@@ -4,7 +4,8 @@
 // - Deduplicate storyline selections and render them
 // - Provide download for character, each storyline, and all images
 // - Provide start-over flow to reset state and return to character page
-import {backendIP} from '../../config.js';
+import { backendIp } from '../../config';
+
 
 // Final page functionality
 document.addEventListener('DOMContentLoaded', function() {
@@ -109,7 +110,7 @@ function renderComicPage(finalImages) {
 
         const img = document.createElement('img');
         // Use backend proxy to avoid CORS issues for html2canvas
-        img.src = `http://`+backendIP`:5000/api/proxy-image?url=${encodeURIComponent(imgObj.src)}`;
+        img.src = `http://`+backendIp+`:5000/api/proxy-image?url=${encodeURIComponent(imgObj.src)}`;
         img.alt = imgObj.title || `Comic panel ${idx + 1}`;
         img.crossOrigin = "anonymous";
 
@@ -192,7 +193,7 @@ function setupEventListeners(characterData, storylineImages) {
 
 function downloadImage(imageData, filename) {
     // Use backend proxy to avoid CORS issues
-    fetch(`http://`+backendIP+`:5000/api/proxy-image?url=${encodeURIComponent(imageData.src)}`)
+    fetch(`http://`+backendIp+`:5000/api/proxy-image?url=${encodeURIComponent(imageData.src)}`)
         .then(response => response.blob())
         .then(blob => {
             const url = window.URL.createObjectURL(blob);
