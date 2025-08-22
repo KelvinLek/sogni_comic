@@ -193,7 +193,7 @@ function setupEventListeners(characterData, storylineImages) {
 
 function downloadImage(imageData, filename) {
     // Use backend proxy to avoid CORS issues
-    fetch(`http://`+backendIP+`:5000/api/proxy-image?url=${encodeURIComponent(imageData.src)}`)
+    fetch(`http://`+backendIp+`:5000/api/proxy-image?url=${encodeURIComponent(imageData.src)}`)
         .then(response => response.blob())
         .then(blob => {
             const url = window.URL.createObjectURL(blob);
