@@ -18,16 +18,18 @@ await client.account.login(USERNAME, PASSWORD);
 console.log('[sogni_client_connect] Logged in as:', USERNAME);
 
 // Options for image generation
-const additionalStyling = ", dynamic motion, epic, use char";
+const additionalStyling = " in a comic book style, dynamic composition, cinematic framing, expressive characters, bold lines, vibrant atmosphere, detailed backgrounds, action-packed, dramatic lighting, high contrast, storytelling focus";
+// const additionalStyling = " style, dynamic, bold";
 const imageGenSeed = Math.floor(Math.random() * 0xFFFFFFFF);
 
 export async function generateImage(prompt,style='manga') {
     console.log('[generateImage] Called with prompt:', prompt);
     console.log('[generateImage] Called with style:', style);
     const project = await client.projects.create({
-        modelId: 'coreml-sogni_artist_v1_768',
+        modelId: 'coreml-aZovyaRPGArtistTools_v4_768',
+        // modelId: 'coreml-sogni_artist_v1_768',
         positivePrompt: prompt,
-        negativePrompt: 'malformation, bad anatomy, bad hands, cropped, low quality',
+        negativePrompt: 'bad anatomy, malformed, distorted, deformed, poorly drawn hands, missing fingers, extra fingers, fused fingers, broken limbs, missing arms, missing legs, extra arms, extra legs, disconnected limbs, cloned body parts, poorly drawn face, asymmetrical face, extra eyes, fused eyes, misaligned eyes, distorted proportions, glitch, blurry, pixelated, watermark, signature, text, cropped head, out of frame, duplicate characters',
         stylePrompt: style + additionalStyling,
         tokenType: 'spark',
         steps: 20,
@@ -54,13 +56,14 @@ export async function generateImageWithReference(prompt, imageUrl, style='manga'
     // Generate images using reference image
     console.log('[generateImageWithReference] Called with prompt:', prompt);
     const project = await client.projects.create({
-        modelId: 'coreml-sogni_artist_v1_768',
-        positivePrompt: prompt + " with reference to the ",
-        negativePrompt: 'malformation, bad anatomy, bad hands, cropped, low quality',
+        // modelId: 'coreml-sogni_artist_v1_768',
+        modelId: 'coreml-aZovyaRPGArtistTools_v4_768',
+        positivePrompt: prompt + " with reference to the " + "sequential art, clear storytelling, cinematic flow, consistent characters matching the guide image, expressive body language, dynamic angles, panel-friendly composition, dramatic pacing, emotional impact, strong visual narrative, easy-to-read action, immersive backgrounds, faithful to the guide image",
+        negativePrompt: 'bad anatomy, malformed, distorted, deformed, poorly drawn hands, missing fingers, extra fingers, fused fingers, broken limbs, missing arms, missing legs, extra arms, extra legs, disconnected limbs, cloned body parts, poorly drawn face, asymmetrical face, extra eyes, fused eyes, misaligned eyes, distorted proportions, glitch, blurry, pixelated, watermark, signature, text, cropped head, out of frame, duplicate characters',
         stylePrompt: style + additionalStyling,
         tokenType: 'spark',
         steps: 20,
-        guidance: 5,
+        guidance: 7.5,
         numberOfImages: 3,
         seed: imageGenSeed,
         startingImage: referenceImageBuffer,

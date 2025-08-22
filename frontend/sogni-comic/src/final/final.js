@@ -7,24 +7,40 @@
 
 // Final page functionality
 document.addEventListener('DOMContentLoaded', function() {
-	// Load character and storyline data from localStorage
-	const characterData = JSON.parse(localStorage.getItem('sogniCharacterData') || '{}');
-	const storylineImagesRaw = JSON.parse(localStorage.getItem('sogniStorylineImages') || '[]');
-	
-	if (!characterData.image || storylineImagesRaw.length === 0) {
-		// No data, redirect back to main page
-		window.location.href = '../index/index.html';
-		return;
-	}
+    // Load character and storyline data from localStorage
+    const characterData = JSON.parse(localStorage.getItem('sogniCharacterData') || '{}');
+    const storylineImagesRaw = JSON.parse(localStorage.getItem('sogniStorylineImages') || '[]');
+    
+    if (!characterData.image || storylineImagesRaw.length === 0) {
+        // No data, redirect back to main page
+        window.location.href = '../index/index.html';
+        return;
+    }
 
-	// Deduplicate storyline images so only the latest selection per storyline is kept
-	const dedupedStorylines = dedupeStorylines(storylineImagesRaw);
+    // Deduplicate storyline images so only the latest selection per storyline is kept
+    const dedupedStorylines = dedupeStorylines(storylineImagesRaw);
 
-	// Display all images
-	displayFinalImages(characterData, dedupedStorylines);
-	
-	// Set up event listeners
-	setupEventListeners(characterData, dedupedStorylines);
+    // Display all images
+    displayFinalImages(characterData, dedupedStorylines);
+    
+    // Set up event listeners
+    setupEventListeners(characterData, dedupedStorylines);
+
+    // --- Build finalImages array for comic strip ---
+    const finalImages = [
+        {
+            src: characterData.image.src,
+            title: characterData.image.title || 'Character',
+            description: characterData.prompt || 'Your Character'
+        },
+        ...dedupedStorylines.map((storyline, idx) => ({
+            src: storyline.image.src,
+            title: storyline.image.title || `Storyline ${idx + 1}`,
+            description: storyline.prompt || ''
+        }))
+    ];
+
+    renderComicPage(finalImages);
 });
 
 function dedupeStorylines(storylineImagesRaw) {
@@ -75,6 +91,66 @@ function displayFinalImages(characterData, storylineImages) {
 		});
 	}
 }
+
+function renderComicPage(finalImages) {
+    const comicPageDiv = document.getElementById('comicPage');
+    if (!comicPageDiv) return;
+
+    comicPageDiv.innerHTML = ''; // Clear previous
+
+    // Choose grid size (e.g., 2 columns)
+    const columns = 2;
+    comicPageDiv.style.setProperty('--comic-columns', columns);
+
+    finalImages.forEach((imgObj, idx) => {
+        const panel = document.createElement('div');
+        panel.className = 'comic-page-panel';
+
+        const img = document.createElement('img');
+        // Use backend proxy to avoid CORS issues for html2canvas
+        img.src = `http://localhost:5000/api/proxy-image?url=${encodeURIComponent(imgObj.src)}`;
+        img.alt = imgObj.title || `Comic panel ${idx + 1}`;
+        img.crossOrigin = "anonymous";
+
+        panel.appendChild(img);
+        comicPageDiv.appendChild(panel);
+    });
+}
+
+// Download comic page as image (requires html2canvas)
+document.getElementById('downloadComicPageBtn').addEventListener('click', function() {
+    const comicPage = document.getElementById('comicPage');
+    const images = comicPage.querySelectorAll('img');
+    let loaded = 0;
+
+    if (images.length === 0) {
+        triggerHtml2Canvas();
+        return;
+    }
+
+    images.forEach(img => {
+        if (img.complete && img.naturalWidth !== 0) {
+            loaded++;
+            if (loaded === images.length) triggerHtml2Canvas();
+        } else {
+            img.onload = img.onerror = function() {
+                loaded++;
+                if (loaded === images.length) triggerHtml2Canvas();
+            };
+        }
+    });
+
+    function triggerHtml2Canvas() {
+        import('html2canvas').then(({ default: html2canvas }) => {
+            html2canvas(comicPage, { useCORS: true }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'comic_page.png';
+                link.href = canvas.toDataURL();
+                link.click();
+            });
+        });
+    }
+});
 
 function setupEventListeners(characterData, storylineImages) {
 	const downloadCharacterBtn = document.getElementById('downloadCharacterBtn');

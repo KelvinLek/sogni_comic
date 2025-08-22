@@ -29,9 +29,9 @@ console.log(mostPopularModel);
 
 // console.log(mostPopularModel);
 
-// //Get a list of all models
-// const listOfModels = await client.projects.availableModels;
-// console.log(listOfModels);
+//Get a list of all models
+const listOfModels = await client.projects.availableModels;
+console.log(listOfModels);
 
 // // Create a project using the most popular model
 // const project = await client.projects.create({

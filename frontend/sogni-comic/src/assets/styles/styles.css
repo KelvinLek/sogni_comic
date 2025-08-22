@@ -906,3 +906,71 @@ a.sogni-link:hover {
     border-color: #f7a440;
     color: #222;
 }
+
+.comic-page-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 30px;
+}
+
+.comic-page {
+    display: grid;
+    grid-template-columns: repeat(var(--comic-columns, 2), 1fr);
+    gap: 18px;
+    background: #fff;
+    border: 6px solid #222;
+    border-radius: 1em;
+    box-shadow: 0 6px 24px #f9d92355;
+    padding: 18px;
+    max-width: 700px;
+    width: 100%;
+    height: auto;
+    margin-bottom: 1em;
+    position: relative;
+    overflow: hidden;
+    transition: width 0.3s, height 0.3s;
+    /* The margin-left and margin-right are no longer needed */
+}
+
+.comic-page-panel {
+    background: #fffbe7;
+    border: 4px solid #222;
+    border-radius: 0.7em;
+    box-shadow: 0 2px 8px #f9d92355;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    aspect-ratio: 3/4;
+    min-width: 0;
+}
+
+.comic-page-panel img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 0.7em;
+}
+
+/* Responsive styles for mobile */
+@media (max-width: 900px) {
+    .comic-page {
+        max-width: 98vw;
+        padding: 8px;
+        gap: 10px;
+    }
+}
+@media (max-width: 700px) {
+    .comic-page {
+        grid-template-columns: 1fr;
+    }
+    .comic-page-panel {
+        aspect-ratio: 3/4;
+        min-height: 180px;
+        max-height: 60vw;
+    }
+}
