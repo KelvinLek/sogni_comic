@@ -1,1 +1,1 @@
-export  const backendIP = "192.168.1.17";
+export const backendIp = "192.168.1.17";
