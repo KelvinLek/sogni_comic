@@ -43,7 +43,7 @@ export async function generateImage(prompt,style='comic') {
         stylePrompt: style + additionalStyling,
         tokenType: 'spark',
         steps: 20,
-        guidance: 7.5,
+        guidance: 9,
         numberOfImages: 1,
         numberOfImages: 1,
         seed: imageGenSeed
@@ -75,13 +75,11 @@ export async function generateImageWithReference(prompt, imageUrl, style='manga'
         stylePrompt: style + additionalStyling,
         tokenType: 'spark',
         steps: 20,
-        guidance: 7.5,
-        numberOfImages: 3,
-        guidance: 7.5,
+        guidance: 9,
         numberOfImages: 3,
         seed: imageGenSeed,
         startingImage: referenceImageBuffer,
-        startingImageStrength: 0.05
+        startingImageStrength: 0.1
     });
     console.log('[generateImageWithReference] Project created:', project.id);
 
