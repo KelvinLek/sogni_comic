@@ -44,7 +44,7 @@ export async function generateImage(prompt,style='comic') {
         tokenType: 'spark',
         steps: 20,
         guidance: 7.5,
-        numberOfImages: 5,
+        numberOfImages: 1,
         seed: imageGenSeed
     });
     console.log('[generateImage] Project created:', project.id);
@@ -54,7 +54,7 @@ export async function generateImage(prompt,style='comic') {
     return imageUrls;
 }
 
-export async function generateImageWithReference(prompt, imageUrl, style='comic') {
+export async function generateImageWithReference(prompt, imageUrl, style='manga') {
 
     // Download image by url and wait for it to finish
     console.log('[generateImageWithReference] Downloading reference image');
@@ -73,8 +73,8 @@ export async function generateImageWithReference(prompt, imageUrl, style='comic'
         stylePrompt: style + additionalStyling,
         tokenType: 'spark',
         steps: 20,
-        guidance: 5,
-        numberOfImages: 5,
+        guidance: 7.5,
+        numberOfImages: 3,
         seed: imageGenSeed,
         startingImage: referenceImageBuffer,
         startingImageStrength: 0.05
