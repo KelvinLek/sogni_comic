@@ -55,8 +55,7 @@ export async function generateImage(prompt,style='comic') {
     return imageUrls;
 }
 
-export async function generateImageWithReference(prompt, imageUrl, style='manga') {
-export async function generateImageWithReference(prompt, imageUrl, style='manga') {
+export async function generateImageWithReference(prompt, imageUrl, style='comic') {
 
     // Download image by url and wait for it to finish
     console.log('[generateImageWithReference] Downloading reference image');
@@ -70,7 +69,7 @@ export async function generateImageWithReference(prompt, imageUrl, style='manga'
     const project = await client.projects.create({
         // modelId: 'coreml-sogni_artist_v1_768',
         modelId: modelMap.get(style),
-        positivePrompt: prompt + " with reference to the " + "sequential art, clear storytelling, cinematic flow, consistent characters matching the guide image, expressive body language, dynamic angles, panel-friendly composition, dramatic pacing, emotional impact, strong visual narrative, easy-to-read action, immersive backgrounds, faithful to the guide image",
+        positivePrompt: prompt ,
         negativePrompt: 'bad anatomy, malformed, distorted, deformed, poorly drawn hands, missing fingers, extra fingers, fused fingers, broken limbs, missing arms, missing legs, extra arms, extra legs, disconnected limbs, cloned body parts, poorly drawn face, asymmetrical face, extra eyes, fused eyes, misaligned eyes, distorted proportions, glitch, blurry, pixelated, watermark, signature, text, cropped head, out of frame, duplicate characters',
         stylePrompt: style + additionalStyling,
         tokenType: 'spark',
