@@ -9,7 +9,7 @@ const PASSWORD = process.env.SOGNI_PASSWORD;
 
 const options = {
     appId: process.env.SOGNI_APP_ID,
-    network: 'relaxed',
+    network: 'fast',
 };
 
 const client = await SogniClient.createInstance(options);
@@ -44,8 +44,7 @@ export async function generateImage(prompt,style='comic') {
         tokenType: 'spark',
         steps: 20,
         guidance: 9,
-        numberOfImages: 1,
-        numberOfImages: 1,
+        numberOfImages: 3,
         seed: imageGenSeed
     });
     console.log('[generateImage] Project created:', project.id);
