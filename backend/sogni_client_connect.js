@@ -9,7 +9,7 @@ const PASSWORD = process.env.SOGNI_PASSWORD;
 
 const options = {
     appId: process.env.SOGNI_APP_ID,
-    network: 'fast',
+    network: 'relaxed',
 };
 
 const client = await SogniClient.createInstance(options);
@@ -27,8 +27,9 @@ modelMap.set('cartoon','coreml-diPixCartoon_v10-cn');
 modelMap.set('realistic','coreml-sogni_artist_v1_768');
 
 // Options for image generation
-const additionalStyling = " in a comic book style, dynamic composition, cinematic framing, expressive characters, bold lines, vibrant atmosphere, detailed backgrounds, action-packed, dramatic lighting, high contrast, storytelling focus";
-// const additionalStyling = " style, dynamic, bold";
+// const additionalStyling = " in a comic book style, dynamic composition, cinematic framing, expressive characters, bold lines, vibrant atmosphere, detailed backgrounds, action-packed, dramatic lighting, high contrast, storytelling focus";
+// const additionalStyling = ", black and white, high-contrast";
+const additionalStyling = "";
 const imageGenSeed = Math.floor(Math.random() * 0xFFFFFFFF);
 
 
@@ -43,12 +44,13 @@ export async function generateImage(prompt,style='comic') {
         stylePrompt: style + additionalStyling,
         tokenType: 'spark',
         steps: 20,
-        guidance: 8.5,
+        guidance: 7.5,
         numberOfImages: 3,
         seed: imageGenSeed
     });
     console.log('[generateImage] Project created:', project.id);
 
+    await new Promise(r => setTimeout(r, 2000));
     const imageUrls = await project.waitForCompletion();
     console.log('[generateImage] Image URLs:', imageUrls);
     return imageUrls;
@@ -73,7 +75,7 @@ export async function generateImageWithReference(prompt, imageUrl, style='comic'
         stylePrompt: style + additionalStyling,
         tokenType: 'spark',
         steps: 20,
-        guidance: 8.5,
+        guidance: 7.5,
         numberOfImages: 3,
         seed: imageGenSeed,
         startingImage: referenceImageBuffer,
@@ -81,6 +83,7 @@ export async function generateImageWithReference(prompt, imageUrl, style='comic'
     });
     console.log('[generateImageWithReference] Project created:', project.id);
 
+    await new Promise(r => setTimeout(r, 2000));
     const imageUrls = await project.waitForCompletion();
     console.log('[generateImageWithReference] Image URLs:', imageUrls);
 
